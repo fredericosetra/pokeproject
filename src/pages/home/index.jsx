@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import pokeapi from "../../services/pokeapi";
+import Card from "../../components/card";
+import * as S from "./styles";
+import Header from "../../components/header";
 
 function Home() {
   const [pokemons, setPokemons] = useState();
@@ -20,9 +23,17 @@ function Home() {
   }, []);
 
   return (
-    <div>
-      <p>{pokemons[0].name}</p>
-    </div>
+    <>
+      <Header />
+      <S.Container>
+        <S.SpacingCard />
+        <Card />
+        <S.SpacingCard />
+        <Card />
+        <S.SpacingCard />
+        <Card />
+      </S.Container>
+    </>
   );
 }
 
