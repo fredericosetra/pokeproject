@@ -1,12 +1,12 @@
 import * as S from "./styles";
 
-function Card() {
+function Card({ namePokemon }) {
   return (
     <S.Container>
       <S.MainImageCustom />
 
       <S.NumberPokemon>#001</S.NumberPokemon>
-      <S.NamePokemon>Pikachu</S.NamePokemon>
+      <S.NamePokemon>{namePokemon}</S.NamePokemon>
       <S.Description>
         Pikachu (ピカチュウ Pikachū?) é uma espécie fictícia pertencente à
         franquia de mídia Pokémon da Nintendo. Ele apareceu pela primeira vez no

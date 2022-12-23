@@ -6,6 +6,7 @@ export const Container = styled.div`
   padding: 40px 32px;
   background-color: #ddb204;
   border-radius: 30px;
+  margin: 0 64px 80px 0;
 `;
 
 export const MainImageCustom = styled.div`
@@ -28,6 +29,7 @@ export const NamePokemon = styled.div`
   font-size: 32px;
   color: white;
   text-transform: uppercase;
+  position: relative;
 `;
 
 export const Description = styled.div`
