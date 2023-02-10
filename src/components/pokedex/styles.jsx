@@ -8,3 +8,16 @@ export const Container = styled.div`
   justify-content: center;
   margin: 80px 0 0 0;
 `;
+
+export const MorePokemonsBtn = styled.div`
+  width: 300px;
+  height: 50px;
+  color: white;
+  background-color: black;
+  border-radius: 30px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;

@@ -4,7 +4,7 @@ import pikachu from "./pikachu.png";
 export const Container = styled.div`
   width: 260px;
   padding: 40px 32px;
-  background-color: #ddb204;
+  background-color: ${(props) => props.backgroundColor ?? "grey"};
   border-radius: 30px;
   margin: 0 64px 80px 0;
 `;
@@ -15,7 +15,7 @@ export const MainImageCustom = styled.div`
   background-size: cover;
   margin: -127px 0 0 132px;
   position: absolute;
-  background-image: url(${pikachu});
+  background-image: url(${(props) => props.MainPhoto ?? pikachu});
 `;
 
 export const NumberPokemon = styled.div`
@@ -23,6 +23,7 @@ export const NumberPokemon = styled.div`
   color: white;
   text-transform: uppercase;
   margin: 10px 0 0 0;
+  text-shadow: 1px 2px 4px #000;
 `;
 
 export const NamePokemon = styled.div`
@@ -30,6 +31,7 @@ export const NamePokemon = styled.div`
   color: white;
   text-transform: uppercase;
   position: relative;
+  text-shadow: 1px 2px 4px #000;
 `;
 
 export const Description = styled.div`
@@ -64,6 +66,7 @@ export const TypesTitle = styled.div`
 
 export const TypesDescription = styled.div`
   font-size: 16px;
+  text-transform: capitalize;
 `;
 
 export const CardEvolution = styled.div`
@@ -76,7 +79,7 @@ export const CardEvolution = styled.div`
 `;
 
 export const TitleEvolution = styled.div`
-  background-color: #b18300;
+  background-color: ${(props) => props.tagBackground};
   border-radius: 8px;
   position: absolute;
   margin: -36px 0 0 0;
