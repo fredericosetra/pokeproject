@@ -23,7 +23,7 @@ function Pokedex() {
   //recebe os primeiros pokemons
   useEffect(() => {
     pokeapi
-      .get("/pokemon?limit=20&offset=0")
+      .get("/pokemon?limit=50&offset=0")
       .then(function (response) {
         getDataPokemons(response.data.results);
       })
@@ -32,6 +32,22 @@ function Pokedex() {
       });
   }, []);
 
+  function weightCalc(weight) {
+    var calculo = Math.floor(weight.length - 1);
+    var resultado = weight.substr(0, calculo) + "," + weight.substr(calculo);
+    return resultado;
+  }
+
+  function typeCustom(data) {
+    if (data.length === 2) {
+      const types = [];
+      types.push(data[0].type.name, data[1].type.name);
+      return types.toString().replace(",", "/");
+    } else {
+      return data[0].type.name;
+    }
+  }
+
   return (
     <S.Container>
       {dataPokemon.length &&
@@ -39,15 +55,15 @@ function Pokedex() {
           return (
             <Card
               key={index}
-              backgroundColor={pokemon.data.types[0].type.name}
+              backgroundColor={typeCustom(pokemon.data.types)}
               tagBackground={pokemon.data.types[0].type.name}
               namePokemon={pokemon.data.name}
               id={pokemon.data.order}
               MainPhoto={
                 pokemon.data.sprites.other["official-artwork"].front_default
               }
-              weightPokemon={pokemon.data.weight}
-              typePokemon={pokemon.data.types[0].type.name}
+              weightPokemon={`${weightCalc(pokemon.data.weight.toString())} kg`}
+              typePokemon={typeCustom(pokemon.data.types)}
             />
           );
         })}

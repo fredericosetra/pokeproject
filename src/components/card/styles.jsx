@@ -4,7 +4,7 @@ import pikachu from "./pikachu.png";
 export const Container = styled.div`
   width: 260px;
   padding: 40px 32px;
-  background-color: ${(props) => props.backgroundColor ?? "grey"};
+  background: ${(props) => props.backgroundColor ?? "grey"};
   border-radius: 30px;
   margin: 0 64px 80px 0;
 `;
@@ -56,7 +56,6 @@ export const AlignTypes = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10px;
 `;
 
 export const TypesTitle = styled.div`
