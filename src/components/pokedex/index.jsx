@@ -2,77 +2,57 @@ import { useState, useEffect } from "react";
 import Card from "../card/index";
 import pokeapi from "../../services/pokeapi";
 import * as S from "./styles";
-import Loading from "../loading";
+// import Loading from "../loading";
+import axios from "axios";
 
 function Pokedex() {
   const [dataPokemon, setDataPokemon] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [amountPokemon, setAmountPokemon] = useState(9);
+  // const [loading, setLoading] = useState(false);
 
-  async function getPokemonData(data) {
-    setLoading(false);
+  //faz um busca nos detalhes do pokemons e organizar as informações para passa para construir a tela.
+  async function getDataPokemons(data) {
+    const response = await axios.all(data.map((item) => axios.get(item.url)));
+    console.log(response);
+    // const responseSpecies = await axios.all(
+    //   response.map((item) => axios.get(item.data.species.url))
+    // );
 
-    const url = [];
-    const statusPokemon = [];
-
-    data.map((item) => {
-      url.push(item.url);
-      return "";
-    });
-
-    for (let index = 0; index < url.length; index++) {
-      pokeapi
-        .get(url[index])
-        .then(function (response) {
-          statusPokemon.push(response.data);
-          setDataPokemon(statusPokemon);
-        })
-        .catch(function (error) {
-          // manipula erros da requisição
-          console.error(error);
-        });
-    }
-
-    setLoading(true);
+    setDataPokemon(response);
   }
 
+  //recebe os primeiros pokemons
   useEffect(() => {
     pokeapi
-      .get("/pokemon?limit=99&offset=0")
+      .get("/pokemon?limit=20&offset=0")
       .then(function (response) {
-        getPokemonData(response.data.results);
+        getDataPokemons(response.data.results);
       })
       .catch(function (error) {
-        // manipula erros da requisição
         console.error(error);
       });
   }, []);
 
-  console.log(dataPokemon);
-
-  return loading ? (
+  return (
     <S.Container>
-      {dataPokemon &&
-        dataPokemon.map((pokemon, index) => {
+      {dataPokemon.length &&
+        dataPokemon?.map((pokemon, index) => {
           return (
             <Card
               key={index}
-              backgroundColor={pokemon.types[0].type.name}
-              tagBackground={pokemon.types[0].type.name}
-              namePokemon={pokemon.name}
-              id={pokemon.id}
+              backgroundColor={pokemon.data.types[0].type.name}
+              tagBackground={pokemon.data.types[0].type.name}
+              namePokemon={pokemon.data.name}
+              id={pokemon.data.order}
               MainPhoto={
-                pokemon.sprites.other["official-artwork"].front_default
+                pokemon.data.sprites.other["official-artwork"].front_default
               }
-              weightPokemon={pokemon.weight}
-              typePokemon={pokemon.types[0].type.name}
+              weightPokemon={pokemon.data.weight}
+              typePokemon={pokemon.data.types[0].type.name}
             />
           );
         })}
       <S.MorePokemonsBtn>Veja Mais...</S.MorePokemonsBtn>
     </S.Container>
-  ) : (
-    <Loading />
   );
 }
 
