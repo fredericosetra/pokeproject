@@ -5,6 +5,7 @@ function Card({
   namePokemon,
   id,
   MainPhoto,
+  descripton,
   typePokemon,
   weightPokemon,
   backgroundColor,
@@ -25,10 +26,9 @@ function Card({
       <S.NumberPokemon>#{id}</S.NumberPokemon>
       <S.NamePokemon>{namePokemon}</S.NamePokemon>
       <S.Description>
-        Pikachu (ピカチュウ Pikachū?) é uma espécie fictícia pertencente à
-        franquia de mídia Pokémon da Nintendo. Ele apareceu pela primeira vez no
-        Japão em 1996, nos jogos eletrônicos Pokémon Red and Blue, e foi criado
-        por Satoshi Tajiri. Originalmente criado como um personagem secundário
+        {descripton
+          ? descripton
+          : "Sorry!, We couldn't find information about this pokemon"}
       </S.Description>
       <S.SubCard>
         <S.AlignTypes>

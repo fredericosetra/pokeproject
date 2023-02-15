@@ -7,17 +7,23 @@ import axios from "axios";
 
 function Pokedex() {
   const [dataPokemon, setDataPokemon] = useState([]);
+  const [speciesPokemon, setSpeciesPokemon] = useState([]);
   // const [loading, setLoading] = useState(false);
 
   //faz um busca nos detalhes do pokemons e organizar as informações para passa para construir a tela.
   async function getDataPokemons(data) {
     const response = await axios.all(data.map((item) => axios.get(item.url)));
-    console.log(response);
-    // const responseSpecies = await axios.all(
-    //   response.map((item) => axios.get(item.data.species.url))
-    // );
+    // console.log(response[0].data.name);
+    // console.log(response);
+
+    const responseSpecies = await axios.all(
+      response.map((item) => pokeapi.get(`/pokemon-species/${item.data.name}`))
+    );
+
+    // console.log(responseSpecies[0].data.flavor_text_entries[7].flavor_text);
 
     setDataPokemon(response);
+    setSpeciesPokemon(responseSpecies);
   }
 
   //recebe os primeiros pokemons
@@ -48,6 +54,10 @@ function Pokedex() {
     }
   }
 
+  function formatDescription(description) {
+    return description.replace("", " ");
+  }
+
   return (
     <S.Container>
       {dataPokemon.length &&
@@ -62,6 +72,9 @@ function Pokedex() {
               MainPhoto={
                 pokemon.data.sprites.other["official-artwork"].front_default
               }
+              descripton={formatDescription(
+                speciesPokemon[index].data.flavor_text_entries[7].flavor_text
+              )}
               weightPokemon={`${weightCalc(pokemon.data.weight.toString())} kg`}
               typePokemon={typeCustom(pokemon.data.types)}
             />

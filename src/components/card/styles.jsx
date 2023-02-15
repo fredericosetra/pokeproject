@@ -39,6 +39,8 @@ export const Description = styled.div`
   color: white;
   margin: 16px 0 0 0;
   text-align: justify;
+  height: 120px;
+  text-transform: lowercase;
 `;
 
 export const SubCard = styled.div`
